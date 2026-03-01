@@ -126,3 +126,10 @@ def get_users(db: Session = Depends(get_db)):
         }
         for user in users
     ]
+@app.delete("/todos/{todo_del}",status_code=204)
+def delete_todos(todo_del:str):
+    for index,todo in enumerate(todos):
+        if todo["title"]== todo_del:
+            todos.pop(index)
+            return
+    raise HTTPException(status_code=404, detail="Item not found")
